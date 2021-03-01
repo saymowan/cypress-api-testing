@@ -1,0 +1,20 @@
+[
+    {
+        "nome": "Mouse Gamer Adamantiun Shinigami Usb",
+        "preco": 98,
+        "descricao": "Mouses para Jogos",
+        "quantidade": 12
+    },
+    {
+        "nome": "Monitor Gamer AOC Agon 32'' Curvo 165Hz",
+        "preco": 269,
+        "descricao": "Monitores Gamer",
+        "quantidade": 45
+    },
+    {
+        "nome": "Kit 3 Roteadores Gigabit Wifi TP-Link Rede Mesh AC1200",
+        "preco": 189,
+        "descricao": "Dispositivos de Conexão em Rede",
+        "quantidade": 78
+    }
+]

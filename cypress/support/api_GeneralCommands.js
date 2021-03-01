@@ -15,6 +15,5 @@ Cypress.Commands.add('POST_generateTokenAdministrator', () =>{
         localStorage.setItem('token', response.body.authorization)
         expect(localStorage.getItem('token')).not.null
         cy.log(localStorage.getItem('token'))
-        
     })      
 })
