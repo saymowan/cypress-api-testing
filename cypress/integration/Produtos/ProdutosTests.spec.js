@@ -18,7 +18,6 @@ describe ('GET_Buscar_Produtos', ()=>{
             .then(response =>{
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(0)
-            //expect(response.body.produtos).to.equal(empty)
             cy.log(JSON.stringify(response.body))
         })
     })
@@ -35,7 +34,7 @@ describe ('GET_Buscar_Produtos', ()=>{
 
             })
         })
-})
+    })
 
 
 })
@@ -111,15 +110,15 @@ describe ('DELETE_Deletar_Produtos', ()=>{
             let _id = response.body._id
 
                 cy.DELETE_DeletarProduto(_id, true)
-                    .then(response =>{
-                        expect(response.status).to.equal(200)
-                        expect(response.body.message).to.eq("Registro excluído com sucesso")
+                    .then(respDelete =>{
+                        expect(respDelete.status).to.equal(200)
+                        expect(respDelete.body.message).to.eq("Registro excluído com sucesso")
                     })   
 
                     cy.GET_BuscarProdutos('_id='+_id)
-                    .then(response =>{
-                        expect(response.status).to.equal(200)
-                        expect(response.body.quantidade).to.equal(0)
+                    .then(respGet =>{
+                        expect(respGet.status).to.equal(200)
+                        expect(respGet.body.quantidade).to.equal(0)
                     })              
                 })
         })
