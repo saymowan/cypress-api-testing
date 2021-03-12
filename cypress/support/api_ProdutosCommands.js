@@ -1,7 +1,5 @@
 /// <reference types="Cypress" />
 
-
-
 Cypress.Commands.add('GET_BuscarProdutos', queryString =>{
     cy.request({
         method: 'GET',
