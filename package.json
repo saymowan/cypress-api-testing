@@ -1,14 +1,12 @@
 {
-  "name": "Cypress-api",
+  "name": "cypress-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "pretest": "npm run clean-reports",
     "clean-reports": "rmdir /S /Q cypress\\reports && mkdir cypress\\reports && mkdir cypress\\reports\\mochareports",
-    
     "test": "cypress run",
-
     "posttest": "npm run combine-reports && npm run generate-report",
     "combine-reports": "mochawesome-merge cypress/reports/mocha/*.json >cypress/reports/mochareports/report.json",
     "generate-report": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports"
@@ -25,6 +23,7 @@
     "mochawesome-report-generator": "^5.1.0"
   },
   "dependencies": {
-    "faker": "^5.1.0"
+    "faker": "^5.4.0",
+    "mysql": "^2.18.1"
   }
 }
