@@ -2,7 +2,7 @@
 
 
 Cypress.Commands.add('POST_generateTokenAdministrator', () =>{
-    cy.request({
+    cy.api({
         method: 'POST',
         url: '/login',
         body: {
