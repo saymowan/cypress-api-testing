@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@bahmutov/cy-api": "^1.4.3",
     "cypress": "^6.1.0",
     "cypress-multi-reporters": "^1.4.0",
     "mocha": "^8.2.1",
