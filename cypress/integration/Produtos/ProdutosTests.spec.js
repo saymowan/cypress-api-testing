@@ -3,10 +3,10 @@
 const faker = require('faker')
 
 
-describe ('GET_Buscar_Produtos', ()=>{
+describe ('Buscar Produtos', ()=>{
 
     it('Produtos - Buscar todos os Produtos', ()=>{
-        cy.GET_BuscarTodosProdutos()
+        cy.getTodosOsProdutos()
             .then(response =>{
             expect(response.status).to.equal(200)
             cy.log(JSON.stringify(response.body))
@@ -14,7 +14,7 @@ describe ('GET_Buscar_Produtos', ()=>{
     })
 
     it('Produtos - Buscar Produto Inexistente', ()=>{
-        cy.GET_BuscarProdutos('nome=9dj9128dh12h89')
+        cy.getProdutos('nome=9dj9128dh12h89')
             .then(response =>{
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(0)
@@ -25,7 +25,7 @@ describe ('GET_Buscar_Produtos', ()=>{
     it('Produtos - Buscar Produto Existente', ()=>{
         let nomeProduto = 'Logitech MX Vertical'
         cy.fixture('Produtos/produtoExistente').then((expectedBody) => {
-            cy.GET_BuscarProdutos('nome='+nomeProduto)
+            cy.getProdutos('nome='+nomeProduto)
                 .then(response =>{
                 cy.log(JSON.stringify(response.body))
                 expect(response.status).to.equal(200)
@@ -40,10 +40,10 @@ describe ('GET_Buscar_Produtos', ()=>{
 })
 
 
-describe ('POST_Criar_Produtos', ()=>{
+describe ('Criar Produtos', ()=>{
 
     beforeEach(() => {
-        cy.POST_generateTokenAdministrator()
+        cy.generateTokenAsAdmin()
     })
 
 
@@ -56,7 +56,7 @@ describe ('POST_Criar_Produtos', ()=>{
             "quantidade": "5"
           }
 
-        cy.POST_CadastrarProduto(produto)
+        cy.postProdutos(produto)
             .then(response =>{
             expect(response.status).to.equal(201)
             expect(response.body.message).to.equal("Cadastro realizado com sucesso")            
@@ -72,13 +72,13 @@ describe ('POST_Criar_Produtos', ()=>{
             "quantidade": "5"
           }
 
-        cy.POST_CadastrarProduto(produto)
+        cy.postProdutos(produto)
             .then(response =>{
             expect(response.status).to.equal(201)
             expect(response.body.message).to.equal("Cadastro realizado com sucesso")
             let _id = response.body._id
 
-                cy.GET_BuscarProdutos('_id='+_id)
+                cy.getProdutos('_id='+_id)
                     .then(response =>{
                         expect(response.status).to.equal(200)
                         expect(response.body.produtos[0].nome).to.eq(produto.nome)
@@ -88,10 +88,10 @@ describe ('POST_Criar_Produtos', ()=>{
 })
 
 
-describe ('DELETE_Deletar_Produtos', ()=>{
+describe ('Deletar Produtos', ()=>{
 
     beforeEach(() => {
-        cy.POST_generateTokenAdministrator()
+        cy.generateTokenAsAdmin()
     })
     
     it('Produtos - Excluir Produto Existente',()=>{
@@ -103,19 +103,19 @@ describe ('DELETE_Deletar_Produtos', ()=>{
             quantidade: "5"
             }
 
-        cy.POST_CadastrarProduto(produto)
+        cy.postProdutos(produto)
             .then(response =>{
             expect(response.status).to.equal(201)
             expect(response.body.message).to.equal("Cadastro realizado com sucesso")
             let _id = response.body._id
 
-                cy.DELETE_DeletarProduto(_id, true)
+                cy.deleteProdutos(_id, true)
                     .then(respDelete =>{
                         expect(respDelete.status).to.equal(200)
                         expect(respDelete.body.message).to.eq("Registro excluído com sucesso")
                     })   
 
-                    cy.GET_BuscarProdutos('_id='+_id)
+                    cy.getProdutos('_id='+_id)
                     .then(respGet =>{
                         expect(respGet.status).to.equal(200)
                         expect(respGet.body.quantidade).to.equal(0)
@@ -127,7 +127,7 @@ describe ('DELETE_Deletar_Produtos', ()=>{
 
     it('Produtos - Excluir Produto Inexistente',()=>{
 
-        cy.DELETE_DeletarProduto("xxx", true)
+        cy.deleteProdutos("xxx", true)
             .then(response =>{
                 expect(response.status).to.equal(200)
                 expect(response.body.message).to.eq("Nenhum registro excluído")
@@ -138,7 +138,7 @@ describe ('DELETE_Deletar_Produtos', ()=>{
     it('Produtos - Excluir Produto token expirado',()=>{
         localStorage.setItem('token', "token erradinho")
 
-        cy.DELETE_DeletarProduto("xxx", false)
+        cy.deleteProdutos("xxx", false)
             .then(response =>{
                 expect(response.status).to.equal(401)
                 expect(response.body.message).to.eq("Token de acesso ausente, inválido, expirado ou usuário do token não existe mais")

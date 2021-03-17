@@ -4,10 +4,10 @@ const produtos = require('../../fixtures/Produtos/produtosList.json')
 const faker = require('faker')
 
 const produtosListJArray = 
-describe ('POST_Criar_Produtos_DDT', ()=>{
+describe ('Criar Produto via DDT', ()=>{
 
     beforeEach(() => {
-        cy.POST_generateTokenAdministrator()
+        cy.generateTokenAsAdmin()
     })
 
     //JArray (produtoList.json) com cada objeto a ser cadastrado
@@ -24,7 +24,7 @@ describe ('POST_Criar_Produtos_DDT', ()=>{
             "quantidade": produto.quantidade
           }
 
-        cy.POST_CadastrarProduto(produtoTestData)
+        cy.postProdutos(produtoTestData)
             .then(response =>{
             expect(response.status).to.equal(expectedStatusCode)
             expect(response.body.message).to.equal(expectedSuccessMessage)            
