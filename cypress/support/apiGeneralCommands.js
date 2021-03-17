@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 
-Cypress.Commands.add('POST_generateTokenAdministrator', () =>{
+Cypress.Commands.add('generateTokenAsAdmin', () =>{
     cy.api({
         method: 'POST',
         url: '/login',

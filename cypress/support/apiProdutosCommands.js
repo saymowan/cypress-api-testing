@@ -1,18 +1,18 @@
 /// <reference types="Cypress" />
 
-Cypress.Commands.add('GET_BuscarProdutos', queryString =>{
+Cypress.Commands.add('getProdutos', queryString =>{
     cy.api({
         method: 'GET',
         url: '/produtos?'+ queryString})
 })
 
-Cypress.Commands.add('GET_BuscarTodosProdutos', () =>{
+Cypress.Commands.add('getTodosOsProdutos', () =>{
     cy.api({
         method: 'GET',
         url: '/produtos'})
 })
 
-Cypress.Commands.add('POST_CadastrarProduto', bodyJson =>{
+Cypress.Commands.add('postProdutos', bodyJson =>{
     cy.api({
         method: 'POST',
         url: '/produtos',
@@ -20,7 +20,7 @@ Cypress.Commands.add('POST_CadastrarProduto', bodyJson =>{
         headers: {  Authorization : localStorage.getItem('token') }})
 })
 
-Cypress.Commands.add('DELETE_DeletarProduto', (productId, failStatusCode) =>{
+Cypress.Commands.add('deleteProdutos', (productId, failStatusCode) =>{
     cy.api({
         method: 'DELETE',
         url: '/produtos/'+productId,
