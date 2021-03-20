@@ -7,11 +7,21 @@
 
 Projeto para estudo e definição de uma arquitetura base para testes automatizados de API Rest com [Cypress](https://www.cypress.io/).
 
-### ✨ Instalação e uso
+### ✨ Instalação e uso da arquitetura
 -----------------------
-- Execute a aplicação ServeRest [via npm](https://www.npmjs.com/package/serverest) ou [via Docker](https://hub.docker.com/r/paulogoncalvesbh/serverest/) localmente. Para mais detalhes visite o [repositório oficial do ServeRest](https://github.com/ServeRest/ServeRest)
-- Baixe o projeto ou faça um clone.
-- Abra o diretório do projeto e execute o comando `npm install`
+- Instale o [Node.js](https://nodejs.org/en/download/);
+- Baixe este repositório ou faça um git clone;
+- Abra o diretório do projeto e execute o comando:
+    - `npm install`
+- Para abrir a interface de execução do Cypress, execute no diretório do projeto:
+    - `npx cypress open`
+- Próximo passo é configurar/instalar a API ServeRest na sua máquina;
+
+
+### ✨  Instalação API ServeRest
+-----------------------
+- A nossa API alvo deste projeto é a ServeRest localmente, para utiliza-la execute a aplicação [via npm](https://www.npmjs.com/package/serverest) ou [via Docker](https://hub.docker.com/r/paulogoncalvesbh/serverest/). 
+- Para mais detalhes visite o [repositório oficial do ServeRest](https://github.com/ServeRest/ServeRest).
 
 ### ⚙️ Arquitetura do projeto
 -----------------------
