@@ -177,9 +177,16 @@ Vide exemplo de teste "forçando" um erro para validar o statuscode e response b
 
 </details>
 
+<details><summary><i>Mock de dados</i></summary>
+
+[Biblioteca Faker](https://github.com/marak/Faker.js/) para mock de dados. 
+Vide [exemplos de dados](https://github.com/marak/Faker.js/#api-methods) que podem ser mascarados.
+
+</details>
+
 <details><summary><i>Data Driven Testing</i></summary>
 
-A arte de reaproveitar o mesmo teste com o mesmo fluxo e asserção variando somente a massa de teste proveniente de dados estáticos ou arquivos (*.csv, *.json, *.xlsx), chamamos de Data Driven Testing (leia mais sobre), na arquitetura temos o uso de um arquivo json (JArray) para a massa de testes:
+A arte de reaproveitar o mesmo teste com o mesmo fluxo e asserção variando somente a massa de teste proveniente de dados estáticos ou arquivos (*.csv, *.json, *.xlsx), chamamos de Data Driven Testing ([leia mais sobre](https://medium.com/@saymowan/data-driven-testing-ddt-e-o-reaproveitamento-dos-testes-automatizados-8c8d67cc211c)), na arquitetura temos o uso de um arquivo json (JArray) para a massa de testes:
 
 ```json
 [
@@ -209,6 +216,7 @@ O mesmo teste é criado N vezes através do arquivo json:
 ```js
 const produtos = require('../../fixtures/Produtos/produtosList.json')
 const faker = require('faker')
+
   //JArray (produtoList.json) com cada objeto a ser cadastrado
   produtos.forEach(produto => {
   it('Produtos - Cadastrar Produto DDT',()=>{
@@ -234,7 +242,6 @@ const faker = require('faker')
 
 
 </details>
-
 
 - Mocha report customizado
 - Chai: asserção status code e response body
