@@ -123,9 +123,6 @@ Testes de requisição de maneira isolada para validar parâmetros válidos, inv
 Testes de múltiplas requisições (e2e) podem ser feitos com esta arquitetura, veja exemplo de um teste para Deletar um Produto (produto é criado durante o teste):
 
 ```js
-const produtos = require('../../fixtures/Produtos/produtosList.json')
-const faker = require('faker')
-
 it('Produtos - Excluir Produto Existente',()=>{
 
     const produto ={
@@ -210,26 +207,28 @@ A arte de reaproveitar o mesmo teste com o mesmo fluxo e asserção variando som
 O mesmo teste é criado N vezes através do arquivo json:
 
 ```js
-    //JArray (produtoList.json) com cada objeto a ser cadastrado
-    produtos.forEach(produto => {
-    it('Produtos - Cadastrar Produto DDT',()=>{
+const produtos = require('../../fixtures/Produtos/produtosList.json')
+const faker = require('faker')
+  //JArray (produtoList.json) com cada objeto a ser cadastrado
+  produtos.forEach(produto => {
+  it('Produtos - Cadastrar Produto DDT',()=>{
 
-        let expectedStatusCode = 201;
-        let expectedSuccessMessage = "Cadastro realizado com sucesso";
+      let expectedStatusCode = 201;
+      let expectedSuccessMessage = "Cadastro realizado com sucesso";
 
-        const produtoTestData ={
-            "nome": produto.nome + "-" + faker.random.number(),
-            "preco": produto.preco,
-            "descricao": produto.descricao,
-            "quantidade": produto.quantidade
-          }
+      const produtoTestData ={
+          "nome": produto.nome + "-" + faker.random.number(),
+          "preco": produto.preco,
+          "descricao": produto.descricao,
+          "quantidade": produto.quantidade
+        }
 
-        cy.postProdutos(produtoTestData)
-            .then(response =>{
-            expect(response.status).to.equal(expectedStatusCode)
-            expect(response.body.message).to.equal(expectedSuccessMessage)            
-            })
-    })
+      cy.postProdutos(produtoTestData)
+          .then(response =>{
+          expect(response.status).to.equal(expectedStatusCode)
+          expect(response.body.message).to.equal(expectedSuccessMessage)            
+      })
+  })
 })
 ```
 
