@@ -94,7 +94,15 @@ Exemplo:
 No exemplo vemos o mapeamento do endpoint Produtos para ser usado por todos os testes de API que desejam utiliza-lo.
 Para criar um teste com esta requisição basta utilizar o command referente e passar o(s) parametro(s):
 
-![Exemplo teste requisição](https://i.imgur.com/kArCar8.png)
+```js
+    it('Produtos - Buscar Produto Inexistente', ()=>{
+        cy.getProdutos('nome=9dj9128dh12h89')
+            .then(response =>{
+            expect(response.status).to.equal(200)
+            expect(response.body.quantidade).to.equal(0)
+        })
+    })
+```
 
 </details>
 
@@ -144,13 +152,88 @@ Testes de múltiplas requisições (e2e) podem ser feitos com esta arquitetura, 
                 })
         })
 ```
-<script src="https://gist.github.com/saymowan/cc134f67626bad669337c4f2498b9ab0.js"></script>
+</details>
+
+<details><summary><i>Testes de exceção de status code (4xx e 5xx)</i></summary>
+
+Para testes de exceção de status code (client side [4xx] or server side [5xx]) precisamos incluir um parâmetro [failOnStatusCode](https://docs.cypress.io/api/commands/request.html#Arguments) na requisição com valor false.
+
+Vide exemplo de mapeamento de requisição:
+
+
+Vide exemplo de teste "forçando" um erro para validar o statuscode e response body:
+
+```js
+    it('Produtos - Excluir Produto token expirado',()=>{
+        localStorage.setItem('token', "token erradinho")
+
+        cy.deleteProdutos("xxx", false)
+            .then(response =>{
+                expect(response.status).to.equal(401)
+                expect(response.body.message).to.eq("Token de acesso ausente, inválido, expirado ou usuário do token não existe mais")
+            })            
+    })
+```
+
+</details>
+
+<details><summary><i>Data Driven Testing</i></summary>
+
+A arte de reaproveitar o mesmo teste com o mesmo fluxo e asserção variando somente a massa de teste proveniente de dados estáticos ou arquivos (*.csv, *.json, *.xlsx), chamamos de Data Driven Testing (leia mais sobre), na arquitetura temos o uso de um arquivo json (JArray) para a massa de testes:
+
+```json
+[
+    {
+        "nome": "Mouse Gamer Adamantiun Shinigami Usb",
+        "preco": 98,
+        "descricao": "Mouses para Jogos",
+        "quantidade": 12
+    },
+    {
+        "nome": "Monitor Gamer AOC Agon 32'' Curvo 165Hz",
+        "preco": 269,
+        "descricao": "Monitores Gamer",
+        "quantidade": 45
+    },
+    {
+        "nome": "Kit 3 Roteadores Gigabit Wifi TP-Link Rede Mesh AC1200",
+        "preco": 189,
+        "descricao": "Dispositivos de Conexão em Rede",
+        "quantidade": 78
+    }
+]
+```
+
+O mesmo teste é criado N vezes através do arquivo json:
+
+```js
+    //JArray (produtoList.json) com cada objeto a ser cadastrado
+    produtos.forEach(produto => {
+    it('Produtos - Cadastrar Produto DDT',()=>{
+
+        let expectedStatusCode = 201;
+        let expectedSuccessMessage = "Cadastro realizado com sucesso";
+
+        const produtoTestData ={
+            "nome": produto.nome + "-" + faker.random.number(),
+            "preco": produto.preco,
+            "descricao": produto.descricao,
+            "quantidade": produto.quantidade
+          }
+
+        cy.postProdutos(produtoTestData)
+            .then(response =>{
+            expect(response.status).to.equal(expectedStatusCode)
+            expect(response.body.message).to.equal(expectedSuccessMessage)            
+            })
+    })
+})
+```
+
 
 </details>
 
 
-- Testes de exceção de status code (4xx e 5xx)
-- Data Driven Testing
 - Mocha report customizado
 - Chai: asserção status code e response body
 - Orquestração
