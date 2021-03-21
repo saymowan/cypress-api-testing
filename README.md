@@ -88,18 +88,25 @@ cypress4testautomationapi/
 <details><summary><i>Requests como commands</i></summary>
 Cada endpoint é mapeado com a sua estrutura (headers, parâmetros, método, endpoint, cookies) no Cypress commands para focarmos em reuso. Os arquivos de mapeamento de requisições podem ser feitos por módulo/categoria.
 Exemplo:
+
 ![Exemplo requisição](https://i.imgur.com/ctY5Zkv.png)
+
 No exemplo vemos o mapeamento do endpoint Produtos para ser usado por todos os testes de API que desejam utiliza-lo.
 Para criar um teste com esta requisição basta utilizar o command referente e passar o(s) parametro(s):
+
 ![Exemplo teste requisição](https://i.imgur.com/kArCar8.png)
+
 </details>
 
 <details><summary><i>Testes isolados e e2e</i></summary>
 Testes de requisição de maneira isolada para validar parâmetros válidos, inválidos, status code estão presentes nesta arquitetura:
+
 <script src="https://gist.github.com/saymowan/660e58887fe3b07918535b40d44dca09.js"></script>
 
 Testes de múltiplas requisições (e2e) podem ser feitos com esta arquitetura, veja exemplo de um teste para Deletar um Produto (produto é criado durante o teste):
+
 <script src="https://gist.github.com/saymowan/cc134f67626bad669337c4f2498b9ab0.js"></script>
+
 </details>
 
 
