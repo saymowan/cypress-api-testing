@@ -123,34 +123,37 @@ Testes de requisição de maneira isolada para validar parâmetros válidos, inv
 Testes de múltiplas requisições (e2e) podem ser feitos com esta arquitetura, veja exemplo de um teste para Deletar um Produto (produto é criado durante o teste):
 
 ```js
-    it('Produtos - Excluir Produto Existente',()=>{
+const produtos = require('../../fixtures/Produtos/produtosList.json')
+const faker = require('faker')
 
-        const produto ={
-            nome: faker.random.uuid(),
-            preco: faker.random.number(),
-            descricao: "Mouse bom",
-            quantidade: "5"
-            }
+it('Produtos - Excluir Produto Existente',()=>{
 
-        cy.postProdutos(produto)
-            .then(response =>{
-            expect(response.status).to.equal(201)
-            expect(response.body.message).to.equal("Cadastro realizado com sucesso")
-            let _id = response.body._id
+    const produto ={
+        nome: faker.random.uuid(),
+        preco: faker.random.number(),
+        descricao: "Mouse bom",
+        quantidade: "5"
+        }
 
-                cy.deleteProdutos(_id, true)
-                    .then(respDelete =>{
-                        expect(respDelete.status).to.equal(200)
-                        expect(respDelete.body.message).to.eq("Registro excluído com sucesso")
-                    })   
+    cy.postProdutos(produto)
+        .then(response =>{
+        expect(response.status).to.equal(201)
+        expect(response.body.message).to.equal("Cadastro realizado com sucesso")
+        let _id = response.body._id
 
-                    cy.getProdutos('_id='+_id)
-                    .then(respGet =>{
-                        expect(respGet.status).to.equal(200)
-                        expect(respGet.body.quantidade).to.equal(0)
-                    })              
-                })
-        })
+            cy.deleteProdutos(_id, true)
+                .then(respDelete =>{
+                    expect(respDelete.status).to.equal(200)
+                    expect(respDelete.body.message).to.eq("Registro excluído com sucesso")
+                })   
+
+                cy.getProdutos('_id='+_id)
+                .then(respGet =>{
+                    expect(respGet.status).to.equal(200)
+                    expect(respGet.body.quantidade).to.equal(0)
+                })              
+            })
+    })
 ```
 </details>
 
