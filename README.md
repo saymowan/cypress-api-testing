@@ -101,10 +101,49 @@ Para criar um teste com esta requisição basta utilizar o command referente e p
 <details><summary><i>Testes isolados e e2e</i></summary>
 Testes de requisição de maneira isolada para validar parâmetros válidos, inválidos, status code estão presentes nesta arquitetura:
 
-<script src="https://gist.github.com/saymowan/660e58887fe3b07918535b40d44dca09.js"></script>
+```js
+    it('Produtos - Excluir Produto Inexistente',()=>{
+
+        cy.deleteProdutos("xxx", true)
+            .then(response =>{
+                expect(response.status).to.equal(200)
+                expect(response.body.message).to.eq("Nenhum registro excluído")
+            })            
+    })
+```
 
 Testes de múltiplas requisições (e2e) podem ser feitos com esta arquitetura, veja exemplo de um teste para Deletar um Produto (produto é criado durante o teste):
 
+```js
+    it('Produtos - Excluir Produto Existente',()=>{
+
+        const produto ={
+            nome: faker.random.uuid(),
+            preco: faker.random.number(),
+            descricao: "Mouse bom",
+            quantidade: "5"
+            }
+
+        cy.postProdutos(produto)
+            .then(response =>{
+            expect(response.status).to.equal(201)
+            expect(response.body.message).to.equal("Cadastro realizado com sucesso")
+            let _id = response.body._id
+
+                cy.deleteProdutos(_id, true)
+                    .then(respDelete =>{
+                        expect(respDelete.status).to.equal(200)
+                        expect(respDelete.body.message).to.eq("Registro excluído com sucesso")
+                    })   
+
+                    cy.getProdutos('_id='+_id)
+                    .then(respGet =>{
+                        expect(respGet.status).to.equal(200)
+                        expect(respGet.body.quantidade).to.equal(0)
+                    })              
+                })
+        })
+```
 <script src="https://gist.github.com/saymowan/cc134f67626bad669337c4f2498b9ab0.js"></script>
 
 </details>
