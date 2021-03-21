@@ -243,12 +243,28 @@ const faker = require('faker')
 
 </details>
 
-- Mocha report customizado
-- Chai: asserção status code e response body
+<details><summary><i>Mocha report customizado</i></summary>
+
+Em desenvolvimento
+
+</details>
+
+<details><summary><i>Chai: asserção status code e response body</i></summary>
+
+Podemos validar de diversas formas os dados retornados no response (body, cookies, headers, status code), vide exemplos que podem ser aplicados: [clique aqui](https://docs.cypress.io/guides/references/assertions.html#BDD-Assertions).
+
+Exemplo de assertiva de status code e parâmetro "message" do response body com o método "to.equal":
+
+```js
+    expect(response.status).to.equal(expectedStatusCode)
+    expect(response.body.message).to.equal(expectedSuccessMessage)            
+```
+
+</details>
+
 - Orquestração
 - Arquivo de configuração
 - Variáveis globais por ambiente
-- Mock de dados
 - Geração e uso de token
 - Parametros via Json, QueryString e Path
 - Pipeline de teste via Github Actions
