@@ -262,7 +262,45 @@ Exemplo de assertiva de status code e parâmetro "message" do response body com 
 
 </details>
 
-- Orquestração
+
+<details><summary><i>Orquestração de métodos</i></summary>
+
+A organização dos métodos que devem ser executados antes ou depois dos testes ou bateria pode ser feito através de méetodos nativos do Cypress, [clique aqui para detalhes](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Hooks).
+
+Um exemplo comum para testes de API é a geração de token de acesso a cada teste, veja exemplo abaixo do método que é executado antes de cada teste para garantir o acesso dos recursos com o token correto:
+
+```js
+    beforeEach(() => {
+        cy.generateTokenAsAdmin()
+    })
+```
+
+Neste caso, o Token é gerado como admin e usamos a Request as Command (../support/apiGeneralCommands.js), veja a requisição mapeada e já enviando o token para o storage para ser usado por todos os testes no header:
+
+```js
+Cypress.Commands.add('generateTokenAsAdmin', () =>{
+    cy.api({
+        method: 'POST',
+        url: '/login',
+        body: {
+            "email": "fulano@qa.com",
+            "password": "teste"
+          }
+    })
+    .then(response =>{
+        expect(response.status).to.eql(200)
+        localStorage.setItem('token', response.body.authorization)
+        expect(localStorage.getItem('token')).not.null
+        cy.log(localStorage.getItem('token'))
+    })      
+})
+```
+
+
+</details>
+
+
+
 - Arquivo de configuração
 - Variáveis globais por ambiente
 - Geração e uso de token
