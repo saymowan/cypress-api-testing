@@ -160,6 +160,16 @@ Para testes de exceção de status code (client side [4xx] or server side [5xx])
 
 Vide exemplo de mapeamento de requisição:
 
+```js
+Cypress.Commands.add('deleteProdutos', (productId, failStatusCode) =>{
+    cy.api({
+        method: 'DELETE',
+        url: '/produtos/'+productId,
+        headers: {  Authorization : localStorage.getItem('token') },
+        failOnStatusCode: failStatusCode
+    })
+})
+```
 
 Vide exemplo de teste "forçando" um erro para validar o statuscode e response body:
 
