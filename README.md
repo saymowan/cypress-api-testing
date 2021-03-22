@@ -323,7 +323,17 @@ Cypress.Commands.add('postProdutos', bodyJson =>{
 </details>
 
 - Parametros via Json, QueryString e Path
-- Pipeline de teste via Github Actions
+
+<details><summary><i>Pipeline de teste via Github Actions</i></summary>
+
+Pipeline feito com Github Actions executado em máquina Linux com os processos:
+
+- Instancia da aplicação ServeRest local via Docker
+- Execução de todos os testes - Task nativa Cypress 
+
+Arquivo yml [disponível aqui](https://github.com/saymowan/cypress-api-core/tree/master/.github/workflows);
+
+</details>
 
 ### 🆕 Novas features 
 ---------------------------
