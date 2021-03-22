@@ -304,7 +304,18 @@ Cypress.Commands.add('generateTokenAsAdmin', () =>{
 Recurso nativo do Cypress através do arquivo cypress.json. [Vide documentação oficial](https://docs.cypress.io/guides/references/configuration.html#Options).
 </details>
 
-- Variáveis globais por ambiente
+<details><summary><i>Variáveis globais por ambiente</i></summary>
+
+Para modificar suas variáveis globais por ambiente temos uma pasta criada "cypress/environmentsConfig" com dois possíveis ambientes "Prod" e "Qa" representados pelos arquivos exampleProd.json e exampleQa.json respectivamente.
+
+Foi feita a inclusão de um plugin (/cypress/plugins/index.js) através do método "getConfigurationByFile()" onde podemos alterar o ambiente ao executar pela linha de comando incluindo qual ambiente se deseja:
+
+```
+npx cypress run --env configfile=exampleProd
+```
+
+</details>
+
 
 <details><summary><i>Geração e uso de token</i></summary>
 
