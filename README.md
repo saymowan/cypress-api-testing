@@ -8,7 +8,7 @@
 Projeto para estudo e definição de uma arquitetura base para testes automatizados de API Rest com [Cypress](https://www.cypress.io/).
 
 ### ✊ Uso deste material
-
+-----------------------
 - Seja maneiro (a), faça referência ao utilizar esta arquitetura/repositório ✌️;
 
 
