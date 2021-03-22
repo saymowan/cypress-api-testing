@@ -328,7 +328,7 @@ Cypress.Commands.add('postProdutos', bodyJson =>{
 
 Exemplo de uso de parâmetro Path com a requisição Delete Produtos:
 
-[Delete Produtos ServeRest](https://i.imgur.com/yQVpCwt.png)
+![Delete Produtos ServeRest](https://i.imgur.com/yQVpCwt.png)
 
 Ao mapear a requisição (Request as Command) incluímos o parâmetro junto ao request service (parâmetro url):
 
@@ -348,7 +348,7 @@ Cypress.Commands.add('deleteProdutos', (productId, failStatusCode) =>{
 
 Exemplo de uso de parâmetro QueryString com a requisição Get Produtos:
 
-[Get Produtos ServeRest](https://i.imgur.com/0x8pzuC.png)
+![Get Produtos ServeRest](https://i.imgur.com/0x8pzuC.png)
 
 Ao mapear a requisição (Request as Command) incluímos o parâmetro junto ao request service (parâmetro url) devendo ser informado quais parâmetros concatenados na camada de testes (integration):
 
@@ -366,7 +366,7 @@ Este recurso ainda está em pesquisa para ser otimizado.
 
 Exemplo de uso de parâmetro Json com a requisição Post Produtos:
 
-[Post Produtos ServeRest](https://i.imgur.com/jNS8H3t.png)
+![Post Produtos ServeRest](https://i.imgur.com/jNS8H3t.png)
 
 Neste caso temos um json de envio, com os seguintes parâmetros:
 
@@ -410,8 +410,7 @@ Camada de teste com o envio dos dados no teste, video a constante "produto" com 
         })
     })
 })
-
-
+```
 
 </details>
 
