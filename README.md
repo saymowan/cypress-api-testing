@@ -296,14 +296,32 @@ Cypress.Commands.add('generateTokenAsAdmin', () =>{
 })
 ```
 
-
 </details>
 
 
+<details><summary><i>Arquivo de configuração</i></summary>
 
-- Arquivo de configuração
+Recurso nativo do Cypress através do arquivo cypress.json. [Vide documentação oficial](https://docs.cypress.io/guides/references/configuration.html#Options).
+</details>
+
 - Variáveis globais por ambiente
-- Geração e uso de token
+
+<details><summary><i>Geração e uso de token</i></summary>
+
+Vide feature "Orquestração de métodos" para entender como o Token é gerado/orquestrado. Para o uso basta incluir o header na Request as Command e incluir o item do localStorage "token":
+
+```js
+Cypress.Commands.add('postProdutos', bodyJson =>{
+    cy.api({
+        method: 'POST',
+        url: '/produtos',
+        body: bodyJson,
+        headers: {  Authorization : localStorage.getItem('token') }})
+})
+```
+
+</details>
+
 - Parametros via Json, QueryString e Path
 - Pipeline de teste via Github Actions
 
