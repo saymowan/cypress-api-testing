@@ -12,11 +12,11 @@ Cypress.Commands.add('getTodosOsProdutos', () =>{
         url: '/produtos'})
 })
 
-Cypress.Commands.add('postProdutos', bodyJson =>{
+Cypress.Commands.add('postProdutos', jsonBody =>{
     cy.api({
         method: 'POST',
         url: '/produtos',
-        body: bodyJson,
+        body: jsonBody,
         headers: {  Authorization : localStorage.getItem('token') }})
 })
 

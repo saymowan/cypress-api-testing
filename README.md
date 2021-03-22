@@ -322,7 +322,98 @@ Cypress.Commands.add('postProdutos', bodyJson =>{
 
 </details>
 
-- Parametros via Json, QueryString e Path
+<details><summary><i>Parametros via Json, QueryString e Path</i></summary>
+
+### Path
+
+Exemplo de uso de parâmetro Path com a requisição Delete Produtos:
+
+[Delete Produtos ServeRest](https://i.imgur.com/yQVpCwt.png)
+
+Ao mapear a requisição (Request as Command) incluímos o parâmetro junto ao request service (parâmetro url):
+
+```js
+Cypress.Commands.add('deleteProdutos', (productId, failStatusCode) =>{
+    cy.api({
+        method: 'DELETE',
+        url: '/produtos/'+productId,
+        headers: {  Authorization : localStorage.getItem('token') },
+        failOnStatusCode: failStatusCode
+    })
+})
+
+```
+
+### QueryString
+
+Exemplo de uso de parâmetro QueryString com a requisição Get Produtos:
+
+[Get Produtos ServeRest](https://i.imgur.com/0x8pzuC.png)
+
+Ao mapear a requisição (Request as Command) incluímos o parâmetro junto ao request service (parâmetro url) devendo ser informado quais parâmetros concatenados na camada de testes (integration):
+
+```js
+Cypress.Commands.add('getProdutos', queryString =>{
+    cy.api({
+        method: 'GET',
+        url: '/produtos?'+ queryString})
+})
+```
+
+Este recurso ainda está em pesquisa para ser otimizado.
+
+### Json
+
+Exemplo de uso de parâmetro Json com a requisição Post Produtos:
+
+[Post Produtos ServeRest](https://i.imgur.com/jNS8H3t.png)
+
+Neste caso temos um json de envio, com os seguintes parâmetros:
+
+```json
+{
+  "nome": "nome",
+  "preco": "1",
+  "descricao": "descricao",
+  "quantidade": "1"
+}
+```
+
+Ao mapear a requisição (Request as Command) incluímos o parâmetro "body" com nossa estrutura de json "jsonBody". Nossos dados virão da camada de testes (integration):
+
+```js
+Cypress.Commands.add('postProdutos', jsonBody =>{
+    cy.api({
+        method: 'POST',
+        url: '/produtos',
+        body: jsonBody,
+        headers: {  Authorization : localStorage.getItem('token') }}) // header de autenticação
+})
+```
+
+Camada de teste com o envio dos dados no teste, video a constante "produto" com os dados mockados:
+
+```js
+    it('Produtos - Cadastrar Produto',()=>{
+
+        const produto ={
+            "nome": faker.random.uuid(),
+            "preco": faker.random.number(),
+            "descricao": "Mouse bom",
+            "quantidade": "5"
+          }
+
+        cy.postProdutos(produto)
+            .then(response =>{
+            expect(response.status).to.equal(201)
+            expect(response.body.message).to.equal("Cadastro realizado com sucesso")            
+        })
+    })
+})
+
+
+
+</details>
 
 <details><summary><i>Pipeline de teste via Github Actions</i></summary>
 
@@ -331,6 +422,7 @@ Pipeline feito com Github Actions executado em máquina Linux com os processos:
 - Instancia da aplicação ServeRest local via Docker
 - Execução de todos os testes - Task nativa Cypress 
 
+Flows executados [disponível aqui](https://github.com/saymowan/cypress-api-core/actions)
 Arquivo yml [disponível aqui](https://github.com/saymowan/cypress-api-core/tree/master/.github/workflows);
 
 </details>
