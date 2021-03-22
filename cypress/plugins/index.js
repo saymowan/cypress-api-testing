@@ -4,10 +4,10 @@
  // Dados da conexão
  const connections = {
    bugtracker: {
-     host: 'localhost',
-     user: 'root',
-     password: 'root',
-     database: 'bugtracker'
+     host: 'host',
+     user: 'user',
+     password: 'password',
+     database: 'database'
    }
  }
  function queryDB (connectionInfo, query) {

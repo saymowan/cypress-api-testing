@@ -18,7 +18,6 @@ describe ('Buscar Produtos', ()=>{
             .then(response =>{
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(0)
-            cy.log(JSON.stringify(response.body))
         })
     })
 
