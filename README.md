@@ -7,6 +7,11 @@
 
 Projeto para estudo e definição de uma arquitetura base para testes automatizados de API Rest com [Cypress](https://www.cypress.io/).
 
+### ✊ Uso deste material
+
+- Seja maneiro (a), faça referência ao utilizar esta arquitetura/repositório ✌️;
+
+
 ### ✨ Instalação e uso da arquitetura
 -----------------------
 - Instale o [Node.js](https://nodejs.org/en/download/);
@@ -23,9 +28,9 @@ Projeto para estudo e definição de uma arquitetura base para testes automatiza
 - A nossa API alvo deste projeto é a ServeRest localmente, para utiliza-la execute a aplicação [via npm](https://www.npmjs.com/package/serverest) ou [via Docker](https://hub.docker.com/r/paulogoncalvesbh/serverest/). 
 - Para mais detalhes visite o [repositório oficial do ServeRest](https://github.com/ServeRest/ServeRest).
 
+
 ### ⚙️ Arquitetura do projeto
 -----------------------
-
 
 ```
 cypress4testautomationapi/
@@ -65,6 +70,7 @@ cypress4testautomationapi/
   ├── package.json
   └── README.md
 ```
+
 ---------------------------------------
 ## 🔍 Camadas da arquitetura
 
@@ -442,14 +448,17 @@ Pipeline feito com Github Actions executado em máquina Linux com os processos:
 - Instancia da aplicação ServeRest local via Docker
 - Execução de todos os testes - Task nativa Cypress 
 
-Flows executados [disponível aqui](https://github.com/saymowan/cypress-api-core/actions)
+Flows executados [disponível aqui](https://github.com/saymowan/cypress-api-core/actions);
+
 Arquivo yml [disponível aqui](https://github.com/saymowan/cypress-api-core/tree/master/.github/workflows);
 
 </details>
 
+
 ### 🆕 Novas features 
 ---------------------------
 Para novas features [crie uma issue](https://github.com/saymowan/cypress-api-core/issues/new) ou verifique o [board do projeto](https://github.com/saymowan/cypress-api-core/projects/1).
+
 
 ### 🌟 Contribuições
 --------------------------
