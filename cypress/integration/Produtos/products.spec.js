@@ -3,28 +3,28 @@
 const faker = require('faker')
 
 
-describe ('Buscar Produtos', ()=>{
+describe ('Get Products', ()=>{
 
-    it('Produtos - Buscar todos os Produtos', ()=>{
-        cy.getTodosOsProdutos()
+    it('Products - Should get all products', ()=>{
+        cy.getAllProducts()
             .then(response =>{
             expect(response.status).to.equal(200)
             cy.log(JSON.stringify(response.body))
         })
     })
 
-    it('Produtos - Buscar Produto Inexistente', ()=>{
-        cy.getProdutos('nome=9dj9128dh12h89')
+    it('Products - Should doesnt return product', ()=>{
+        cy.getProducts('nome=9dj9128dh12h89')
             .then(response =>{
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(0)
         })
     })
 
-    it('Produtos - Buscar Produto Existente', ()=>{
+    it('Products - Should return product info', ()=>{
         let nomeProduto = 'Logitech MX Vertical'
         cy.fixture('Produtos/produtoExistente').then((expectedBody) => {
-            cy.getProdutos('nome='+nomeProduto)
+            cy.getProducts('nome='+nomeProduto)
                 .then(response =>{
                 cy.log(JSON.stringify(response.body))
                 expect(response.status).to.equal(200)
@@ -39,14 +39,14 @@ describe ('Buscar Produtos', ()=>{
 })
 
 
-describe ('Criar Produtos', ()=>{
+describe ('Create Products', ()=>{
 
     beforeEach(() => {
         cy.generateTokenAsAdmin()
     })
 
 
-    it('Produtos - Cadastrar Produto',()=>{
+    it('Products - Should create a new product',()=>{
 
         const produto ={
             "nome": faker.random.uuid(),
@@ -55,14 +55,14 @@ describe ('Criar Produtos', ()=>{
             "quantidade": "5"
           }
 
-        cy.postProdutos(produto)
+        cy.postProduct(produto)
             .then(response =>{
             expect(response.status).to.equal(201)
             expect(response.body.message).to.equal("Cadastro realizado com sucesso")            
         })
     })
 
-    it('Produtos - Cadastrar e Listar Produto',()=>{
+    it('Products - Should create and get a new product',()=>{
 
         const produto ={
             "nome": faker.random.uuid(),
@@ -71,13 +71,13 @@ describe ('Criar Produtos', ()=>{
             "quantidade": "5"
           }
 
-        cy.postProdutos(produto)
+        cy.postProduct(produto)
             .then(response =>{
             expect(response.status).to.equal(201)
             expect(response.body.message).to.equal("Cadastro realizado com sucesso")
             let _id = response.body._id
 
-                cy.getProdutos('_id='+_id)
+                cy.getProducts('_id='+_id)
                     .then(response =>{
                         expect(response.status).to.equal(200)
                         expect(response.body.produtos[0].nome).to.eq(produto.nome)
@@ -87,13 +87,13 @@ describe ('Criar Produtos', ()=>{
 })
 
 
-describe ('Deletar Produtos', ()=>{
+describe ('Delete Products', ()=>{
 
     beforeEach(() => {
         cy.generateTokenAsAdmin()
     })
     
-    it('Produtos - Excluir Produto Existente',()=>{
+    it('Products - Should delete a new product',()=>{
 
         const produto ={
             nome: faker.random.uuid(),
@@ -102,19 +102,19 @@ describe ('Deletar Produtos', ()=>{
             quantidade: "5"
             }
 
-        cy.postProdutos(produto)
+        cy.postProduct(produto)
             .then(response =>{
             expect(response.status).to.equal(201)
             expect(response.body.message).to.equal("Cadastro realizado com sucesso")
             let _id = response.body._id
 
-                cy.deleteProdutos(_id, true)
+                cy.deleteProduct(_id, true)
                     .then(respDelete =>{
                         expect(respDelete.status).to.equal(200)
                         expect(respDelete.body.message).to.eq("Registro excluído com sucesso")
                     })   
 
-                    cy.getProdutos('_id='+_id)
+                    cy.getProducts('_id='+_id)
                     .then(respGet =>{
                         expect(respGet.status).to.equal(200)
                         expect(respGet.body.quantidade).to.equal(0)
@@ -124,9 +124,9 @@ describe ('Deletar Produtos', ()=>{
 
 
 
-    it('Produtos - Excluir Produto Inexistente',()=>{
+    it('Products - Should delete invalid product',()=>{
 
-        cy.deleteProdutos("xxx", true)
+        cy.deleteProduct("xxx", true)
             .then(response =>{
                 expect(response.status).to.equal(200)
                 expect(response.body.message).to.eq("Nenhum registro excluído")
@@ -134,10 +134,10 @@ describe ('Deletar Produtos', ()=>{
     })
 
 
-    it('Produtos - Excluir Produto token expirado',()=>{
+    it('Products - Should delete product with expired token',()=>{
         localStorage.setItem('token', "token erradinho")
 
-        cy.deleteProdutos("xxx", false)
+        cy.deleteProduct("xxx", false)
             .then(response =>{
                 expect(response.status).to.equal(401)
                 expect(response.body.message).to.eq("Token de acesso ausente, inválido, expirado ou usuário do token não existe mais")
