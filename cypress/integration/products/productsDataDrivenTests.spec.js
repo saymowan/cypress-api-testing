@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-const productsJArrayList = require('../../fixtures/Produtos/produtosList.json')
+const productsJArrayList = require('../../fixtures/products/productsList.json')
 const faker = require('faker')
 
 describe ('Products using Data Driven File', ()=>{

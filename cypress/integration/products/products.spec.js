@@ -23,7 +23,7 @@ describe ('Get Products', ()=>{
 
     it('Products - Should return product info', ()=>{
         let nomeProduto = 'Logitech MX Vertical'
-        cy.fixture('Produtos/produtoExistente').then((expectedBody) => {
+        cy.fixture('products/product').then((expectedBody) => {
             cy.getProducts('nome='+nomeProduto)
                 .then(response =>{
                 cy.log(JSON.stringify(response.body))
